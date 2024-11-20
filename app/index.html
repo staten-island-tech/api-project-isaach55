@@ -7,26 +7,20 @@
     <title>Vite App</title>
   </head>
   <body>
-<!--<script type="module" src="/main.js"></script>--> 
+    <h1>i would have made this play music but the soundcloud api sucks.</h1>
+
+    <div class="sort-buttons">
+      <button type="button" id="search-song">Search for a song</button>
+      <button type="button" id="similar-songs">
+        Search for similar songs you might like
+      </button>
+      <button type="button" id="similar-artists">
+        Search for similar artists you might like
+      </button>
+    </div>
+
+    <!--<script type="module" src="/main.js"></script>-->
+
+    <script type="module" src="./JS/main.js"></script>
   </body>
 </html>
-
-
-<script>
-  const apiUrl = 'https://ws.audioscrobbler.com/2.0/?method=track.search&track=video+games&api_key=c4f4cbe78d2187a1928264219a8a3bb6&format=json';
-
-fetch(apiUrl)
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('didnt work ' + response.statusText);
-    }
-    return response.json(); 
-  })
-  .then(data => {
-    console.log(data);
-    // You can access the track info in the data object, e.g., data.results.trackmatches.track
-  })
-  .catch(error => {
-    console.error('no bueno', error);
-  });
-</script>
