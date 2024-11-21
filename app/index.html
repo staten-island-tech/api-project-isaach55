@@ -10,7 +10,21 @@
     <h1>i would have made this play music but the soundcloud api sucks.</h1>
 
     <div class="sort-buttons">
-      <button type="button" id="search-song">Search for a song</button>
+      <!--search by artist, album, or track-->
+      <input
+        type="text"
+        pname="searchbar"
+        id="searchbar"
+        placeholder="Input song here"
+      />
+      <label for="search"> or </label>
+      <input
+        type="text"
+        name="search"
+        id="search"
+        placeholder="search by album"
+      />
+      <button type="button" id="search-song">Search for song</button>
       <button type="button" id="similar-songs">
         Search for similar songs you might like
       </button>
@@ -18,9 +32,6 @@
         Search for similar artists you might like
       </button>
     </div>
-
-    <!--<script type="module" src="/main.js"></script>-->
-
     <script type="module" src="./JS/main.js"></script>
   </body>
 </html>

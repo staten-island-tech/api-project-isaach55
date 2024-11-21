@@ -29,33 +29,29 @@ const apiUrl =
     console.error("There was a problem with the fetch operation:", error);
   });*/
 
-const apiKey = "c4f4cbe78d2187a1928264219a8a3bb6"; // Replace with your Last.fm API key
-const baseUrl = "http://ws.audioscrobbler.com/2.0/"; // Last.fm API endpoint
+const apiKey = "c4f4cbe78d2187a1928264219a8a3bb6";
+const baseUrl = "http://ws.audioscrobbler.com/2.0/";
+const DOMSelectors = {};
 
-// Function to search for a song by track name
 function searchTrack(trackName) {
   const url = `${baseUrl}?method=track.search&track=${encodeURIComponent(
     trackName
   )}&api_key=${apiKey}&format=json`;
 
-  // Fetching data from the Last.fm API
   fetch(url)
     .then((response) => response.json()) // Convert the response to JSON
     .then((data) => {
       if (data.results && data.results.trackmatches) {
         const tracks = data.results.trackmatches.track;
         if (tracks.length > 0) {
-          console.log(`Found ${tracks.length} result(s) for "${trackName}":`);
           tracks.forEach((track) => {
             console.log(`Track: ${track.name}`);
             console.log(`Artist: ${track.artist}`);
             console.log(`Album: ${track.album ? track.album : "N/A"}`);
             console.log(`URL: ${track.url}`);
-            console.log(`Playcount: ${track.playcount}`);
-            console.log(`Listeners: ${track.listeners}`);
             console.log(
               `Duration: ${
-                track.duration ? track.duration / 1000 : "N/A"
+                track.duration ? track.duration / 1000 : "N/A" //duration is in milliseconds
               } seconds`
             );
             console.log(
@@ -79,5 +75,7 @@ function searchTrack(trackName) {
     });
 }
 
-// Example usage of the function to search for a song
 searchTrack("Video Games");
+
+/*track.getSimilar
+ */
