@@ -30,14 +30,47 @@ const apiUrl =
   });*/
 
 const apiKey = "c4f4cbe78d2187a1928264219a8a3bb6";
-const baseUrl = "http://ws.audioscrobbler.com/2.0/";
-const DOMSelectors = {};
+const siteUrl = "http://ws.audioscrobbler.com/2.0/";
+const DOMSelectors = {
+  container: document.getElementById(container),
+};
 
-function searchTrack(trackName) {
-  const url = `${baseUrl}?method=track.search&track=${encodeURIComponent(
+async function search(track) {
+  try {
+    const URL = `${siteUrl}?method=track.search&track=${encodeURIComponent(
+      track
+    )}&api_key=${apiKey}&format=json`;
+    const response = await fetch(URL);
+    const data = await response.json();
+    const tracks = data.results.trackmatches.track;
+    createCards(tracks);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function createCards(tracks) {
+  //const track.getInfo, album.info use album.info to get image url
+  //DOMSelectors.container.innerHTML("");
+  tracks.forEach((track) => {
+    /*
+      DOMSelectors.container.insertAdjacentHTML(
+      "beforeend",
+      `<div class="card"> 
+      </div>`
+    );
+    */
+    console.log(`Track: ${track.name}`);
+    console.log(`Artist: ${track.artist}`);
+  });
+}
+
+search("oldest trick in the book");
+
+/*function searchTrack(trackName) {
+  const url = `${siteUrl}?method=track.search&track=${encodeURIComponent(
     trackName
   )}&api_key=${apiKey}&format=json`;
-
   fetch(url)
     .then((response) => response.json()) // Convert the response to JSON
     .then((data) => {
@@ -74,8 +107,7 @@ function searchTrack(trackName) {
       console.error("Error:", error);
     });
 }
-
-searchTrack("Video Games");
+*/
 
 /*track.getSimilar
  */
