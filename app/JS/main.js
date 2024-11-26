@@ -29,9 +29,9 @@ async function search(track) {
     const URL = `${siteUrl}?method=track.search&track=${encodeURIComponent(
       track
     )}&api_key=${apiKey}&format=json`;
-    let response = await fetch(URL);
-    let data = await response.json();
-    let tracks = data.results.trackmatches.track;
+    var response = await fetch(URL);
+    var data = await response.json();
+    var tracks = data.results.trackmatches.track;
     createCards(tracks);
   } catch (error) {
     console.log(error);
@@ -39,30 +39,35 @@ async function search(track) {
 }
 
 function createCards(tracks) {
+  DOMSelectors.container.innerHTML = "";
   //const track.getInfo, album.info use album.info to get image url
-  //DOMSelectors.container.innerHTML("");
-  tracks.forEach((track) => {
-    /*
+  //DOMSelectors.container.innerHTML('');
+  if (tracks.length > 0) {
+    tracks.forEach((track) => {
+      /*
       DOMSelectors.container.insertAdjacentHTML(
       "beforeend",
       `<div class="card"> 
       </div>`
     );
     */
-    DOMSelectors.container.insertAdjacentHTML(
-      "beforeend",
-      `<div class="card">
+      DOMSelectors.container.insertAdjacentHTML(
+        "beforeend",
+        `<div class="card">
       <p class="cardText"> ${track.name} </p>
       <p class="cardText"> ${track.artist} </p>
       </div>`
-    );
-    console.log(`Track: ${track.name}`);
-    console.log(`Artist: ${track.artist}`);
-  });
+      );
+      console.log(`Track: ${track.name}`);
+      console.log(`Artist: ${track.artist}`);
+    });
+  } else {
+    DOMSelectors.container.insertAdjacentHTML(
+      "afterbegin",
+      `<p class="cardText"> No results found </p>`
+    )
+  }
 }
-
-search("song");
-
 /*function searchTrack(trackName) {
   const url = `${siteUrl}?method=track.search&track=${encodeURIComponent(
     trackName
