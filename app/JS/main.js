@@ -10,39 +10,28 @@ Shared secret	0cb39cd4c438b9dabd5848b304b3f552
 
 const apiUrl =
   "https://ws.audioscrobbler.com/2.0/?method=track.search&track=video+games&api_key=c4f4cbe78d2187a1928264219a8a3bb6&format=json";
-
-// Use fetch to make the API request
-/*fetch(apiUrl)
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error("Network response was not ok " + response.statusText);
-    }
-    return response.json(); // Parse the JSON response
-  })
-  .then((data) => {
-    // Handle the data here
-    console.log(data); // Log the data or process it for display
-    // You can access the track info in the data object, e.g., data.results.trackmatches.track
-    console.log(data.results);
-  })
-  .catch((error) => {
-    console.error("There was a problem with the fetch operation:", error);
-  });*/
-
 const apiKey = "c4f4cbe78d2187a1928264219a8a3bb6";
 const siteUrl = "http://ws.audioscrobbler.com/2.0/";
 const DOMSelectors = {
-  container: document.getElementById(container),
+  form: document.getElementById("form"),
+  searchButton: document.getElementById("searchButton"),
+  container: document.getElementById("container"),
 };
+
+DOMSelectors.searchButton.addEventListener("click", function () {
+  let songName = DOMSelectors.form.value;
+  DOMSelectors.form.value = "";
+  search(songName);
+});
 
 async function search(track) {
   try {
     const URL = `${siteUrl}?method=track.search&track=${encodeURIComponent(
       track
     )}&api_key=${apiKey}&format=json`;
-    const response = await fetch(URL);
-    const data = await response.json();
-    const tracks = data.results.trackmatches.track;
+    let response = await fetch(URL);
+    let data = await response.json();
+    let tracks = data.results.trackmatches.track;
     createCards(tracks);
   } catch (error) {
     console.log(error);
@@ -60,12 +49,19 @@ function createCards(tracks) {
       </div>`
     );
     */
+    DOMSelectors.container.insertAdjacentHTML(
+      "beforeend",
+      `<div class="card">
+      <p class="cardText"> ${track.name} </p>
+      <p class="cardText"> ${track.artist} </p>
+      </div>`
+    );
     console.log(`Track: ${track.name}`);
     console.log(`Artist: ${track.artist}`);
   });
 }
 
-search("oldest trick in the book");
+search("song");
 
 /*function searchTrack(trackName) {
   const url = `${siteUrl}?method=track.search&track=${encodeURIComponent(
