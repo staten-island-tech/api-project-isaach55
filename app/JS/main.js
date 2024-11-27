@@ -39,23 +39,16 @@ async function search(track) {
 }
 
 function createCards(tracks) {
-  DOMSelectors.container.innerHTML = "";
   //const track.getInfo, album.info use album.info to get image url
-  //DOMSelectors.container.innerHTML('');
   if (tracks.length > 0) {
+    DOMSelectors.container.innerHTML = "";
     tracks.forEach((track) => {
-      /*
-      DOMSelectors.container.insertAdjacentHTML(
-      "beforeend",
-      `<div class="card"> 
-      </div>`
-    );
-    */
       DOMSelectors.container.insertAdjacentHTML(
         "beforeend",
         `<div class="card">
       <p class="cardText"> ${track.name} </p>
       <p class="cardText"> ${track.artist} </p>
+      <button type="button" id="selectButton">Select</button>
       </div>`
       );
       console.log(`Track: ${track.name}`);
@@ -65,7 +58,7 @@ function createCards(tracks) {
     DOMSelectors.container.insertAdjacentHTML(
       "afterbegin",
       `<p class="cardText"> No results found </p>`
-    )
+    );
   }
 }
 /*function searchTrack(trackName) {
