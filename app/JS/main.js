@@ -3,15 +3,12 @@ import "../CSS/style.css";
 /*
 API key	c4f4cbe78d2187a1928264219a8a3bb6
 Shared secret	0cb39cd4c438b9dabd5848b304b3f552
-
-API Docs
-
 */
 
 const apiUrl =
   "https://ws.audioscrobbler.com/2.0/?method=track.search&track=video+games&api_key=c4f4cbe78d2187a1928264219a8a3bb6&format=json";
 const apiKey = "c4f4cbe78d2187a1928264219a8a3bb6";
-const siteUrl = "http://ws.audioscrobbler.com/2.0/";                  //static, doesn't need to go in the DOMSelector
+const siteUrl = "https://ws.audioscrobbler.com/2.0/";                  //static, doesn't need to go in the DOMSelector
 const DOMSelectors = {
   form: document.getElementById("form"),
   searchButton: document.getElementById("searchButton"),
@@ -107,12 +104,10 @@ async function returnSimilar(track, artist) {
   }
 }
 
-//probably excessive function, but the api data for getsimilar and searchtrack seems to be in a different format (track.artist.name instead of track.artist)
+//probably excessive function, but the api data for getsimilar and searchtrack seems to be in a different format (track.artist.name instead of track.artist) so i just made another function
 
 async function similarCards(tracks) {
   DOMSelectors.container.innerHTML = "";
-  //const track.getInfo, album.info use album.info to get image url
-  //DOMSelectors.container.innerHTML('');
   if (tracks.length > 0) {
     for (const track of tracks) {
       const artist = track.artist.name;
@@ -122,7 +117,7 @@ async function similarCards(tracks) {
         `<div class="card">
         ${imageHTML}
         <p class="cardText"> ${track.name} </p>
-        <p class="cardText"> ${track.artist.name} </p>
+        <p class="cardText"> ${artist} </p>
         <button class="selectButton" id="${track.url}">Find Similar Songs</button>
         </div>`
       );
