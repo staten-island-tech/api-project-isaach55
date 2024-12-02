@@ -30,7 +30,7 @@ async function search(track) {
     const response = await fetch(URL);
     const data = await response.json();
     const tracks = data.results.trackmatches.track;
-    console.log(data);
+    //console.log(data);
     await createCards(tracks);
   } catch (error) {
     console.error(error);
@@ -45,10 +45,8 @@ async function findImageLink(track, artistName) {                               
     const response = await fetch(URL);
     const data = await response.json();
     if (data.track.album && data.track.album.image[3]["#text"]) {                   //if track has an album and has an album image (4th entry in image array is extra large)
-      console.log("has album image");
       return `<img class="image" src="${data.track.album.image[3]["#text"]}" alt="album cover">`;   //text property is the url of the image
     } else {
-      console.log("no album image");
       return '<img class="image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSU8u8tpVE9yl1Jj0L81O7deRDfyW-yOXX-Kw&s" alt = "no album cover found">';
     }
   } catch (error) {
@@ -61,7 +59,6 @@ async function createCards(tracks) {
   if (tracks.length > 0) {
     for (const track of tracks) {
       //forEach doesn't work with asynchronous functions
-      console.log("tracks:", track);
       const artist = track.artist;
       const imageHTML = await findImageLink(track, artist);
       DOMSelectors.container.insertAdjacentHTML(
@@ -98,9 +95,6 @@ async function returnSimilar(track, artist) {
     const response = await fetch(URL);
     const data = await response.json();
     const tracks = data.similartracks.track;
-    console.log("url being used:", URL);
-    console.log("similarcards being created with");
-    console.log(data);
     await similarCards(tracks);
   } catch (error) {
     console.error(error);
