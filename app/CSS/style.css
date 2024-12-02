@@ -1,3 +1,49 @@
-/*@tailwind base;
+@tailwind base;
 @tailwind components;
-@tailwind utilities;*/
+@tailwind utilities;
+
+/*I couldn't really get the tailwind to work when I used it in the insertAdjacentHTML*/
+
+:root {
+    --primary: #041B11;
+    --secondary: #3C493F;
+    --tertiary: #99D5C9;
+    --quaternary: #F1D302;
+}
+
+body {
+    background-color: var(--primary);
+}
+
+.card {
+    border: 1vw solid var(--secondary);
+    border-radius: 3vw;
+    background-color: var(--tertiary);
+    box-sizing: border-box;
+    margin: 1vw 0;
+}
+
+.image {
+    width: 95%;
+    height: auto;
+    box-sizing: border-box;
+    margin: 1vw;
+    border: 1vw solid var(--quaternary);
+    border-radius: 1.5vw;
+}
+
+.trackTitle {
+    font-size: 3rem;
+}
+
+.trackArtist {
+    font-size: 1.5rem;
+}
+
+.selectButton {
+    background-color: var(--quaternary);
+    border-radius: 0.5vw;
+    margin: 0.5vw;
+    padding: 0.5vw;
+    font-size: 1rem;
+}

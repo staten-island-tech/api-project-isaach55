@@ -26,33 +26,33 @@ async function search(track) {
     const URL = `${siteUrl}?method=track.search&track=${encodeURIComponent(
       //to allow special characters and spaces without breaking the link
       track
-    )}&api_key=${apiKey}&format=json`;
+    )}&limit=10&api_key=${apiKey}&format=json`;
     const response = await fetch(URL);
     const data = await response.json();
     const tracks = data.results.trackmatches.track;
     console.log(data);
-    createCards(tracks);
+    await createCards(tracks);
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
-async function findImageLink(track, artistName) {
+async function findImageLink(track, artistName) {                                   //images from the album cover
   try {
     const URL = `${siteUrl}?method=track.getInfo&artist=${encodeURIComponent(
       artistName
     )}&track=${encodeURIComponent(track.name)}&api_key=${apiKey}&format=json`;
     const response = await fetch(URL);
     const data = await response.json();
-    if (data.track.album && data.track.album.image[3]["#text"]) {         //if track has an album and has an album image (entry 4 in the image array is extra large)
-      //console.log("has album image");
-      return `<img src="${data.track.album.image[3]["#text"]}" alt="album cover`;   //text property is the url of the image
+    if (data.track.album && data.track.album.image[3]["#text"]) {                   //if track has an album and has an album image (4th entry in image array is extra large)
+      console.log("has album image");
+      return `<img class="image" src="${data.track.album.image[3]["#text"]}" alt="album cover">`;   //text property is the url of the image
     } else {
-      //console.log("no album image");
-      return '<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSU8u8tpVE9yl1Jj0L81O7deRDfyW-yOXX-Kw&s" alt = "no album cover found">';
+      console.log("no album image");
+      return '<img class="image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSU8u8tpVE9yl1Jj0L81O7deRDfyW-yOXX-Kw&s" alt = "no album cover found">';
     }
-  } catch {
-    console.log("error in album search");
+  } catch (error) {
+    console.error(error);
   }
 }
 
@@ -66,10 +66,10 @@ async function createCards(tracks) {
       const imageHTML = await findImageLink(track, artist);
       DOMSelectors.container.insertAdjacentHTML(
         "beforeend",
-        `<div class="card"> 
+        `<div class="card flex flex-col justify-center items-center p-4"> 
         ${imageHTML} 
-        <p class="cardText"> ${track.name} </p>
-        <p class="cardText"> ${artist} </p>
+        <p class="trackTitle"> ${track.name} </p>
+        <p class="trackArtist"> ${artist} </p>
         <button class="selectButton" id="${track.url}">Find Similar Songs</button>
         </div>`
       );
@@ -78,7 +78,7 @@ async function createCards(tracks) {
   } else {
     DOMSelectors.container.insertAdjacentHTML(
       "afterbegin",
-      `<p class="noResultsText"> No results found </p>`
+      `<p class="noResultsText"> No results found</p>`
     );
   }
 }
@@ -94,13 +94,16 @@ async function returnSimilar(track, artist) {
   try {
     const URL = `${siteUrl}?method=track.getsimilar&artist=${encodeURIComponent(
       artist
-    )}&track=${encodeURIComponent(track.name)}&api_key=${apiKey}&format=json`;
+    )}&track=${encodeURIComponent(track.name)}&limit=10&api_key=${apiKey}&format=json`;
     const response = await fetch(URL);
     const data = await response.json();
     const tracks = data.similartracks.track;
-    similarCards(tracks);
+    console.log("url being used:", URL);
+    console.log("similarcards being created with");
+    console.log(data);
+    await similarCards(tracks);
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
@@ -114,10 +117,10 @@ async function similarCards(tracks) {
       const imageHTML = await findImageLink(track, artist)
       DOMSelectors.container.insertAdjacentHTML(
         "beforeend",
-        `<div class="card">
+        `<div class="card flex flex-col justify-center items-center p-4">
         ${imageHTML}
-        <p class="cardText"> ${track.name} </p>
-        <p class="cardText"> ${artist} </p>
+        <p class="trackTitle"> ${track.name} </p>
+        <p class="trackArtist"> ${artist} </p>
         <button class="selectButton" id="${track.url}">Find Similar Songs</button>
         </div>`
       );
@@ -130,3 +133,5 @@ async function similarCards(tracks) {
     );
   }
 }
+
+search("West Coast");

@@ -6,20 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite App</title>
   </head>
-  <body>
-    <h1>i would have made this play music but the soundcloud api sucks.</h1>
-
-    <div class="sort-buttons">
-      <form action=""></form>
-      <input
-        type="text"
-        name="songName"
-        id="form"
-        placeholder="Search by song name / artist"
-      />
-      <button type="button" id="searchButton">Enter</button>
+  <body class="min-h-screen">
+    <div class="flex flex-col items-center text">
+      <h1 class="text-[3rem] text-[var(--tertiary)] text-center">Find similar music to your favorite track</h1>
+      <div class="text-[var(--tertiary)] text-[1.5rem]">
+        <input
+          class="px-[0.5vw] text-black rounded-[0.5vw]"
+          type="text"
+          name="songName"
+          id="form"
+          placeholder="Search by song name"
+        />
+        <button class="rounded-[0.5vw] bg-[var(--secondary)] px-[1vw] mx-[1vw]" type="button" id="searchButton">Enter</button>
+      </div>
+      <div
+        class="w-[60vw] flex align-center text-center flex-col py-[1vw] text-[var(--secondary)]"
+        id="container"
+      ></div>
     </div>
-    <div id="container"></div>
     <script type="module" src="./JS/main.js"></script>
   </body>
 </html>
