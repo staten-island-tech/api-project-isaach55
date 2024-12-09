@@ -45,7 +45,7 @@ async function findImageLink(track, artistName) {                               
     const response = await fetch(URL);
     const data = await response.json();
     if (data.track.album && data.track.album.image[3]["#text"]) {                   //if track has an album and has an album image (4th entry in image array is extra large)
-      return `<img class="image" src="${data.track.album.image[3]["#text"]}" alt="album cover">`;   //text property is the url of the image
+      return `<img class="image px-[10vw]" src="${data.track.album.image[3]["#text"]}" alt="album cover">`;   //text property is the url of the image
     } else {
       return '<img class="image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSU8u8tpVE9yl1Jj0L81O7deRDfyW-yOXX-Kw&s" alt = "no album cover found">';
     }
@@ -63,11 +63,11 @@ async function createCards(tracks) {
       const imageHTML = await findImageLink(track, artist);
       DOMSelectors.container.insertAdjacentHTML(
         "beforeend",
-        `<div class="card flex flex-col justify-center items-center p-4"> 
+        `<div class="card flex flex-col justify-center items-center"> 
         ${imageHTML} 
-        <p class="trackTitle"> ${track.name} </p>
-        <p class="trackArtist"> ${artist} </p>
-        <button class="selectButton" id="${track.url}">Find Similar Songs</button>
+        <p class="text-[3rem]"> ${track.name} </p>
+        <p class="text-[1.5rem]"> ${artist} </p>
+        <button class="selectButton bg-yellow p-[0.5vw] text-[1rem] m-[0.5vw] rounded-sm" id="${track.url}">Find Similar Songs</button>
         </div>`
       );
       addButtonListener(track, artist);
@@ -113,8 +113,8 @@ async function similarCards(tracks) {
         "beforeend",
         `<div class="card flex flex-col justify-center items-center p-4">
         ${imageHTML}
-        <p class="trackTitle"> ${track.name} </p>
-        <p class="trackArtist"> ${artist} </p>
+        <p class="text-[3rem]"> ${track.name} </p>
+        <p class="text-[1.5rem]"> ${artist} </p>
         <button class="selectButton" id="${track.url}">Find Similar Songs</button>
         </div>`
       );

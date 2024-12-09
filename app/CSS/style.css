@@ -2,17 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-/*I couldn't really get the tailwind to work when I used it in the insertAdjacentHTML*/
+/*I couldn't really get the tailwind to work when I used it some of the insertAdjacentHTML, it works only for 
+changing text size and not with anything with vw values or the HTML for the inserted images, which I used a
+template literal for*/
 
 :root {
-    --primary: #041B11;
+    --primary: #203029;
     --secondary: #3C493F;
     --tertiary: #99D5C9;
     --quaternary: #F1D302;
-}
-
-body {
-    background-color: var(--primary);
 }
 
 .card {
@@ -32,18 +30,11 @@ body {
     border-radius: 1.5vw;
 }
 
-.trackTitle {
-    font-size: 3rem;
-}
-
-.trackArtist {
-    font-size: 1.5rem;
-}
 
 .selectButton {
     background-color: var(--quaternary);
     border-radius: 0.5vw;
-    margin: 0.5vw;
+    margin: 1vw;
     padding: 0.5vw;
     font-size: 1rem;
 }
